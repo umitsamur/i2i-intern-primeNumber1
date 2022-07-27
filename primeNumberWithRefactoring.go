@@ -50,7 +50,7 @@ func main() {
 		if number < 2 {
 			fmt.Println("Number must be greater or equal than 2")
 		} else {
-			fmt.Println(isPrime(number))
+			fmt.Printf("%d => %s \n", number, isPrime(number))
 		}
 	}
 
