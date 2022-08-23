@@ -26,7 +26,7 @@ func isPrime(number int) (message string) {
 
 func check(err error) {
 	if err != nil {
-		log.Fatalf("unable to read file: %v", err)
+		log.Fatalf("unable to file: %v", err)
 	}
 }
 
@@ -38,22 +38,30 @@ func stringToInt(text string) (number int) {
 	return number
 }
 
+func intToString(number int) (text string) {
+	text = strconv.Itoa(number)
+	return text
+}
+
 func main() {
 	var number int
 
+	txtWrite, err := os.Create("result.txt")
+	check(err)
 	f, err := os.Open("a.txt")
 	check(err)
 
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
 		number = stringToInt(scanner.Text())
+		stringTypeOfNumberVariable := intToString(number)
 		if number < 2 {
 			fmt.Println("Number must be greater or equal than 2")
 		} else {
-			fmt.Println(isPrime(number))
+			txtWrite.WriteString(stringTypeOfNumberVariable + " => " + isPrime(number) + "\n")
+			fmt.Printf("%d => %s \n", number, isPrime(number))
 		}
 	}
-
 	f.Close()
 
 }

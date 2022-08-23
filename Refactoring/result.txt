@@ -1,0 +1,5 @@
+12 => Number is not prime number
+29 => Number is prime number
+25 => Number is not prime number
+11 => Number is prime number
+2 => Number is prime number

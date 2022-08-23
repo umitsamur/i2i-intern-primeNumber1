@@ -12,7 +12,16 @@ func main() {
 	var number int
 	var isPrime bool
 
-	f, err := os.Open("a.txt")
+	txtWrite, err := os.Create("result.txt")
+	if err != nil {
+		log.Fatalf("unable to write file: %v", err)
+	}
+	/*txtData, err := txtWrite.WriteString("")
+	if err != nil {
+		log.Fatal(err)
+	}*/
+
+	f, err := os.Open("../a.txt")
 	if err != nil {
 		log.Fatalf("unable to read file: %v", err)
 	}
@@ -21,6 +30,8 @@ func main() {
 	for scanner.Scan() {
 		isPrime = true
 		number, err = strconv.Atoi(scanner.Text())
+
+		str := strconv.Itoa(number)
 		if err != nil {
 			fmt.Println("Casting problem. Please enter integer data")
 		}
@@ -33,13 +44,16 @@ func main() {
 				}
 			}
 			if isPrime == true {
-				fmt.Println("Number is prime number")
+				txtWrite.WriteString(str + " => Number is prime number\n")
+				fmt.Printf("%d => Number is prime number\n", number)
 			} else {
-				fmt.Println("Number is not prime number")
+				txtWrite.WriteString(str + " => Number is not prime number\n")
+				fmt.Printf("%d => Number is not prime number\n", number)
 			}
+
 		}
+
 	}
-
 	f.Close()
-
+	txtWrite.Close()
 }
